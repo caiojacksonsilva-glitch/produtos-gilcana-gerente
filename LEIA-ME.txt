@@ -1,4 +1,13 @@
-Produtos Gilçana Gerente V1.8
+Produtos Gilçana Gerente V2.0
 
-Correção de atualização/cache para GitHub Pages. Mantém todas as funções da V1.7: Clientes, indicadores de mensagens, leitura e seletor de datas da preparação.
-Não requer novo SQL se ATUALIZAR_GERENTE_V1_7.sql já foi executado.
+Nova central de parâmetros editáveis em Configurações:
+- dados da empresa e WhatsApp
+- aviso aos clientes
+- antecedência padrão de preparação
+- mensagem de confirmação
+- seleção de produtos recomendados
+- opções de notificações do gerente e cliente
+- dias, horários de corte e exceções permanecem editáveis na aba Entregas
+- mantém segurança, computadores autorizados e backup/restauração da V1.9
+
+Antes de publicar, execute sql/ATUALIZAR_GERENTE_V2_0.sql no mesmo projeto Supabase.
