@@ -11,3 +11,6 @@ Nova central de parâmetros editáveis em Configurações:
 - mantém segurança, computadores autorizados e backup/restauração da V1.9
 
 Antes de publicar, execute sql/ATUALIZAR_GERENTE_V2_0.sql no mesmo projeto Supabase.
+
+V2.1 — WHATSAPP
+Integração WhatsApp Cloud API preparada e isolada. Execute sql/ATUALIZAR_GERENTE_V2_1_WHATSAPP.sql. A função Edge está em supabase/functions/enviar-whatsapp/index.ts. Consulte WHATSAPP_CONFIGURAR_DEPOIS.txt.

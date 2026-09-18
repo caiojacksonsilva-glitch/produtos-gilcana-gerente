@@ -1,0 +1,43 @@
+PRODUTOS GILÇANA — WHATSAPP CLOUD API
+
+A integração já está preparada. Quando a verificação da Meta estiver disponível:
+
+1) Meta / WhatsApp Business Platform
+- Vincule o número da Produtos Gilçana.
+- Crie e aprove estes templates em pt_BR:
+
+pedido_confirmado
+Olá {{1}}. Seu pedido #{{2}} foi confirmado pela Produtos Gilçana. Entrega prevista: {{3}}.
+
+pedido_cancelado
+Olá {{1}}. Seu pedido #{{2}} foi cancelado. Se precisar, fale com a Produtos Gilçana.
+
+pedido_pronto_envio
+Olá {{1}}. Seu pedido #{{2}} está pronto para envio. Entrega prevista: {{3}}.
+
+nova_mensagem
+Olá {{1}}. Você recebeu uma nova mensagem da Produtos Gilçana. Abra o aplicativo para visualizar.
+
+2) Supabase > Edge Functions > Secrets
+Cadastre:
+WHATSAPP_ACCESS_TOKEN = token permanente da Meta
+WHATSAPP_PHONE_NUMBER_ID = ID do número de telefone do WhatsApp
+WHATSAPP_GRAPH_VERSION = versão atual da Graph API, por exemplo vXX.X
+
+NÃO coloque esses valores no GitHub.
+
+3) Supabase > Edge Functions
+Crie/deploy a função com nome exato: enviar-whatsapp
+Use o arquivo: supabase/functions/enviar-whatsapp/index.ts
+
+4) No Gerente > Configurações > WhatsApp automático
+É possível ligar/desligar cada evento e alterar os nomes dos templates e idioma.
+
+Eventos preparados:
+- confirmação de pedido
+- cancelamento de pedido
+- pedido pronto para envio
+- nova mensagem do chat
+
+IMPORTANTE
+Enquanto as credenciais Meta não existirem, a função retorna "não configurado" e o fluxo normal do Gerente continua funcionando. Pedido/chat não dependem do WhatsApp para concluir.
