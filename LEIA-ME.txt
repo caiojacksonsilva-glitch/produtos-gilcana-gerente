@@ -1,9 +1,4 @@
-PRODUTOS GILÇANA GERENTE V1
+Produtos Gilçana Gerente V1.8
 
-1. Abra sql/INSTALAR_APP_GERENTE.sql.
-2. Na linha SENHA_INICIAL, troque 12345 pela senha inicial desejada.
-3. Execute o SQL no projeto Supabase kpzcvreqjkgevzmlipjs.
-4. Publique os arquivos deste diretório em um NOVO site Netlify, separado do app cliente.
-5. No primeiro acesso, informe a senha e um nome para o computador.
-
-O painel inclui: pedidos aguardando confirmação, receber/confirmar/cancelar, chat, produtos/estoque/imagens, dias de entrega/cortes, exceções, senha e até 3 computadores.
+Correção de atualização/cache para GitHub Pages. Mantém todas as funções da V1.7: Clientes, indicadores de mensagens, leitura e seletor de datas da preparação.
+Não requer novo SQL se ATUALIZAR_GERENTE_V1_7.sql já foi executado.

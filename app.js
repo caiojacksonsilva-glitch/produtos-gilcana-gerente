@@ -50,5 +50,17 @@ const dayNames=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-
 window.saveDay=async i=>{let {error}=await sb.rpc('gerente_salvar_dia',{p_dia:i,p_ativo:$(`#day${i}`).checked,p_corte:$(`#cut${i}`).value,p_antes:1});if(error)return err(error);toast('Dia atualizado');await loadDelivery()};$('#saveException').onclick=async()=>{let {error}=await sb.rpc('gerente_salvar_excecao',{p_original:$('#exceptionOriginal').value||null,p_nova:$('#exceptionNew').value||null,p_cancelada:$('#exceptionCancel').checked});if(error)return err(error);toast('Exceção salva');await loadDelivery()};
 async function loadDevices(){let {data}=await sb.rpc('gerente_listar_computadores');$('#devicesList').innerHTML=(data||[]).map(d=>`<div class="device-row"><span>${esc(d.nome)}</span><small>${d.ativo?'Ativo':'Removido'}</small>${d.ativo?`<button class="danger" onclick="removeDevice('${d.auth_uid}')">Remover</button>`:''}</div>`).join('')};window.removeDevice=async uid=>{if(!confirm('Remover este computador?'))return;let {error}=await sb.rpc('gerente_remover_computador',{p_uid:uid});if(error)return err(error);await loadDevices()};$('#changePassword').onclick=async()=>{let {error}=await sb.rpc('gerente_trocar_senha',{p_nova:$('#newPassword').value});if(error)return err(error);$('#newPassword').value='';toast('Senha alterada')};$('#logoutBtn').onclick=async()=>{await sb.auth.signOut();location.reload()};
 let channel=sb ? sb.channel('gerente-live').on('postgres_changes',{event:'*',schema:'public',table:'pedidos'},()=>{loadOrders();loadPreparation()}).on('postgres_changes',{event:'*',schema:'public',table:'mensagens'},()=>{loadChats();if(activeClient)loadMessages()}).on('postgres_changes',{event:'*',schema:'public',table:'produtos'},()=>loadProducts()).subscribe() : null;
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');
+// V1.8: GitHub Pages online-first. Remove service workers/caches antigos que prendiam versões anteriores.
+(async()=>{
+  try{
+    if('serviceWorker' in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r=>r.unregister()));
+    }
+    if('caches' in window){
+      const keys=await caches.keys();
+      await Promise.all(keys.filter(k=>k.startsWith('gilcana-gerente')).map(k=>caches.delete(k)));
+    }
+  }catch(e){console.warn('Limpeza de cache:',e)}
+})();
 if(sb) ensureAuth().catch(err);
